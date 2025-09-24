@@ -6,7 +6,7 @@ $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['uuid'])) {
     $unique_code = trim($_GET['uuid']);
-$selectFields = ['name', 'phone_office', 'id', 'ownership','address','email1','employees','rating','description'];
+$selectFields = ['name', 'phone_office', 'id', 'ownership','address','email1','employees','rating','description','passport_url'];
     // Instantiate and login SuiteCRM client
     $crmClient = new SuiteCRMClient();
 

@@ -52,7 +52,7 @@ require 'head.php';
                                 </h2>
 
                                 <!-- login form -->
-                            <form id="step1" class="login-form" action="amdon_auth.php" method="POST">
+                            <form id="step1" class="login-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="action" value="login">
                                 <div class="input-field">
                                     <input type="text"  name="phone_number" id="username" required>
@@ -131,10 +131,14 @@ require 'head.php';
                                     </label>
                                 </div>
                                 <div class="input-field delay-200ms">
+                                    <label for="passport">Upload Passport Photo</label>
+                                    <input type="file" name="passport" id="passport" accept="image/*" required />
+                                </div>
+
+                                <div class="g-recaptcha" data-sitekey="6LcqAtQrAAAAAMBUC0QiCDNf8H4tzxzqctB0IHra"></div>
+                                <div class="input-field delay-200ms">
                                     <!-- <input type="text"  name="address" id="password" required> -->
-                                    <textarea name="address" id="address" required>
-                                        
-                                    </textarea>
+                                    <textarea name="address" id="address" required></textarea>
                                     <label>
                                         Address
                                     </label>
@@ -236,7 +240,17 @@ require 'head.php';
             const password = form.find('[name="password"]').val();
         
             if(!username) { showMessage(form, "Phone number is required for login.", true); return false; }
-            if(!password) { showMessage(form, "Password is required for login.", true); return false; }
+            if(!password) { showMessage(form, "Password is required for login.", true); return false; }const passportFile = form.find('[name="passport"]').val();
+            if (!passportFile) {
+                showMessage(form, "Passport photo is required.", true);
+                return false;
+            }
+
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                showMessage(form, "Please complete the CAPTCHA.", true);
+                return false;
+            }
         
             return true;
           }
@@ -297,8 +311,7 @@ require 'head.php';
           $('.form-message').remove();
         });
 </script>
-
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </body>
 

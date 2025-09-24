@@ -11,7 +11,7 @@ let userId = document.getElementById("uuid").value;
                 console.error("Error:", data.error);
                 return;
             }
-    let bioData = `https://amdon.com.ng/?uuid=${userId}`;
+    let bioData = `https://amdon.com.ng/idcard/?uuid=${userId}`;
     // let bioData = `Name: ${data.full_name}\nPhone: ${data.phone_number}\nEmail: ${data.email}\nDealer: ${data.dealer_name}\nState: ${data.state}\nLGA: ${data.lga}\nAddress: ${data.address}`;
   $('#badge').css('display', 'block');
   $('#dwnBadge').css('display', 'block');

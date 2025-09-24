@@ -1,21 +1,29 @@
 <?php
 require 'head.php';
+require 'SuiteCRMClient.php'; // your OOP client class file
 
-if (!isset($_GET['reference'])) {
-        header('Location: /');
+// Verify GET parameters
+if (!isset($_GET['reference']) || !isset($_GET['uuid'])) {
+    header('Location: /');
+    echo json_encode(['success' => false, 'message' => 'Missing parameters']);
+    exit;
 }
 
 $reference = $_GET['reference'];
+$uuid = $_GET['uuid'];  // The dealer record ID
+
 $secret_key = "sk_test_b1720b597be42c297ffc2e90f9a25f3e088efcf5";
+$paystackApiUrl = "https://api.paystack.co/transaction/verify/" . urlencode($reference);
 
-$url = "https://api.paystack.co/transaction/verify/" . $reference;
-
+// Initialize curl to verify payment
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "Authorization: Bearer $secret_key",
-    "Content-Type: application/json"
+curl_setopt_array($ch, [
+    CURLOPT_URL => $paystackApiUrl,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => [
+        "Authorization: Bearer $secret_key",
+        "Content-Type: application/json"
+    ],
 ]);
 
 $response = curl_exec($ch);
@@ -23,13 +31,51 @@ curl_close($ch);
 
 $result = json_decode($response);
 
-// if () {
-//     echo "Payment successful. Transaction ID: " . $result->data->id;
-// } else {
-//     echo "Payment failed or not verified.";
-// }
-if (isset($_GET['uuid'])) {
-    $uuid = $_GET['uuid'];
+if (!$result || !$result->status || $result->data->status !== "success") {
+    echo json_encode(['success' => false, 'message' => 'Payment verification failed']);
+    exit;
+}
+
+// Payment succeeded - now record it in SuiteCRM
+try {
+    // Instantiate SuiteCRM client
+    $crmClient = new SuiteCRMClient();
+
+    // Login to SuiteCRM
+    if (!$crmClient->login()) {
+        throw new Exception("SuiteCRM API login failed");
+    }
+
+    // Prepare payment record data
+    $paymentData = [
+        ['name' => 'name', 'value' => 'Payment for Dealer ' . $uuid],
+        ['name' => 'transaction_id', 'value' => $result->data->id],
+        ['name' => 'amount', 'value' => $result->data->amount / 100], // convert kobo to naira
+        ['name' => 'payment_status', 'value' => 'Completed'],
+        ['name' => 'date_entered', 'value' => date('Y-m-d H:i:s')],
+        ['name' => 'related_dealer', 'value' => $uuid]  // adjust to your actual relationship field
+    ];
+
+    // Create new payment record
+    $newPaymentId = $crmClient->setEntry('AMD_Fees', $paymentData);
+
+    if ($newPaymentId) {
+        echo json_encode([
+            'success' => true,
+            'message' => 'Payment recorded successfully',
+            'payment_id' => $newPaymentId
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Failed to create payment record'
+        ]);
+    }
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error: ' . $e->getMessage()
+    ]);
 }
  ?>
 

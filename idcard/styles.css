@@ -130,30 +130,30 @@ position: relative;
 overflow: hidden;
 }
 
-.badge-header::after {
-content: '';
-position: absolute;
-top: -4px;
-left: -20px;
-width: 40%;
-height: 180%;
-background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 30%, transparent 10.01%);
-background-size: 10px 10px;
-transform: rotate(52deg);
-opacity: 0.8;
-}
+/*.badge-header::after {*/
+/*content: '';*/
+/*position: absolute;*/
+/*top: -4px;*/
+/*left: -20px;*/
+/*width: 40%;*/
+/*height: 180%;*/
+/*background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 30%, transparent 10.01%);*/
+/*background-size: 10px 10px;*/
+/*transform: rotate(52deg);*/
+/*opacity: 0.8;*/
+/*}*/
 
-.badge-header::before {
-content: '';
-position: absolute;
-background-color: #fff;
-width: 12px;
-height: 12px;
-border-radius: 20px;
-top: 5px;
-left: 50%;
-transform: translateX(-50%);
-}
+/*.badge-header::before {*/
+/*content: '';*/
+/*position: absolute;*/
+/*background-color: #fff;*/
+/*width: 12px;*/
+/*height: 12px;*/
+/*border-radius: 20px;*/
+/*top: 5px;*/
+/*left: 50%;*/
+/*transform: translateX(-50%);*/
+/*}*/
 
 .badge-header h1 {
   margin: 0;
@@ -161,7 +161,7 @@ transform: translateX(-50%);
 }
 
 .badge-body {
-  padding: 20px;
+  /*padding: 20px;*/
   display: flex;
   flex-direction: column;
 }
@@ -192,7 +192,7 @@ h3 {
 .badge-footer {
   background-color: #007bff;
   color: white;
-  padding: 15px;
+  padding: 0 15px;
 }
 
 .badge-footer p {

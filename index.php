@@ -50,7 +50,7 @@
                         <div class="header-top-contact">
                             <ul>
                                 <li><a href="https://live.themewild.com/cdn-cgi/l/email-protection#d9b0b7bfb699bca1b8b4a9b5bcf7bab6b4"><i class="far fa-envelopes"></i>
-                                        <span class="__cf_email__" data-cfemail="4f262129200f2a372e223f232a612c2022">[email&#160;protected]</span></a></li>
+                                        <span class="__cf_email__" data-cfemail="4f262129200f2a372e223f232a612c2022">oyo@amdon.com.ng</span></a></li>
                                 <li><a href="tel:+21236547898"><i class="far fa-phone-volume"></i> +2 123 654 7898</a>
                                 </li>
                                 <li><a href="#"><i class="far fa-alarm-clock"></i> Sun - Fri (08AM - 10PM)</a></li>
@@ -97,7 +97,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#dealers">Dealers</a>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="#team">Our Excos</a></li>
+                            <!--<li class="nav-item"><a class="nav-link" href="#team">Our Excos</a></li>-->
                             </li>
                             <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                         </ul>
@@ -245,38 +245,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="hero-single" style="background: url(assets/img/slider/slider-3.jpg)">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-12 col-lg-6">
-                                <div class="hero-content">
-                                    <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Welcome To
-                                        Motex!</h6>
-                                    <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
-                                        Best Way To Find Your <span>Dream</span> Car
-                                    </h1>
-                                    <p data-animation="fadeInLeft" data-delay=".75s">
-                                        Sellers of vehicles Brand new and imported fairly used popularly know as tokunbo in Nigeria.
-                                    </p>
-                                    <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
-                                        <a href="register" class="theme-btn">Register Now<i
-                                                class="fas fa-arrow-right-long"></i></a>
-                                        <a href="register" class="theme-btn theme-btn2">Login Now<i
-                                                class="fas fa-arrow-right-long"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <div class="hero-right">
-                                    <div class="hero-img">
-                                        <img src="assets/img/slider/hero-4.png" alt="" data-animation="fadeInRight"
-                                            data-delay=".25s">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="hero-single" style="background: url(assets/img/slider/slider-3.jpg)">-->
+                <!--    <div class="container">-->
+                <!--        <div class="row align-items-center">-->
+                <!--            <div class="col-md-12 col-lg-6">-->
+                <!--                <div class="hero-content">-->
+                <!--                    <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Welcome To-->
+                <!--                        Motex!</h6>-->
+                <!--                    <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">-->
+                <!--                        Best Way To Find Your <span>Dream</span> Car-->
+                <!--                    </h1>-->
+                <!--                    <p data-animation="fadeInLeft" data-delay=".75s">-->
+                <!--                        Sellers of vehicles Brand new and imported fairly used popularly know as tokunbo in Nigeria.-->
+                <!--                    </p>-->
+                <!--                    <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">-->
+                <!--                        <a href="register" class="theme-btn">Register Now<i-->
+                <!--                                class="fas fa-arrow-right-long"></i></a>-->
+                <!--                        <a href="register" class="theme-btn theme-btn2">Login Now<i-->
+                <!--                                class="fas fa-arrow-right-long"></i></a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            <div class="col-md-12 col-lg-6">-->
+                <!--                <div class="hero-right">-->
+                <!--                    <div class="hero-img">-->
+                <!--                        <img src="assets/img/slider/hero-4.png" alt="" data-animation="fadeInRight"-->
+                <!--                            data-delay=".25s">-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
             </div>
         </div>
         <!-- hero slider end -->
@@ -410,7 +410,7 @@
                                     <i class="flaticon-drive"></i> About Us
                                 </span>
                                 <h2 class="site-title">
-                                    Association of <span>Motor Dealer</span> of Nigeria (AMDON).
+                                    Association of <span>Motor Dealer</span> of Nigeria (AMDON) Oyo State.
                                 </h2>
                             </div>
                             <p class="about-text">

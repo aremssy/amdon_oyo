@@ -1,24 +1,57 @@
 <?php
-require '../register/db.php';
-// header('Content-Type: application/json');
+require '../register/SuiteCRMClient.php'; // Your SuiteCRMClient PHP class
 
 $user = null;
 $error = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['uuid'])) {
     $unique_code = trim($_GET['uuid']);
+$selectFields = ['name', 'phone_office', 'id', 'ownership','address','email1','employees','rating','description'];
+    // Instantiate and login SuiteCRM client
+    $crmClient = new SuiteCRMClient();
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE unique_code = ?");
-    $stmt->bind_param("s", $unique_code);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    try {
+        $crmClient->login();
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-    } else {
-        $error = "Invalid Unique Code. Please check and try again.";
+        // Search the Amdon_Dealers module for record with matching unique_code
+            $entry = $crmClient->getRecordById('AMD_Members', $unique_code, $selectFields);
+
+        if ($entry) {
+            $user = [];
+            foreach ($entry as $field) {
+                if ($field['name'] === 'name') {
+                    $user['full_name'] = $field['value'];
+                } elseif ($field['name'] === 'phone_office') {
+                    $user['phone_number'] = $field['value'];
+                } elseif ($field['name'] === 'ownership') {
+                    $user['dealer_name'] = $field['value'];
+                } elseif ($field['name'] === 'rating') {
+                    $user['id'] = $field['value'];
+                } elseif ($field['name'] === 'email1') {
+                    $user['email'] = $field['value'];
+                } elseif ($field['name'] === 'employees') {
+                    $user['state'] = "Oyo State";
+                } elseif ($field['name'] === 'employees') {
+                    $user['lga'] = $field['value'];
+                }elseif ($field['name'] === 'description') {
+                    $user['address'] = $field['value'];
+                }
+            }
+            // Now use $user for your ID card generation
+        } else {
+            // handle no record found
+        }
+        // var_dump($entry);
+        // exit;
+        
+        
+    } catch (Exception $e) {
+        $error = "Error fetching data: " . $e->getMessage();
     }
+} else {
+    $error = "No Unique Code provided.";
 }
+// die(var_dump($params));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,17 +67,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     <div id="badge" class="badge">
         <div class="badge-header">
-            <img src="../assets/images/amdon_logo_main.jpg" style="max-width: 200px;">
+            <img src="https://amdon.com.ng/assets/img/logo/logo.png" style="max-width: 150px;">
+            <br>
+            <img src="https://www.shutterstock.com/image-vector/man-shirt-tie-businessman-avatar-600nw-548848999.jpg" style="max-width: 150px;">
             <!-- <h1 id="badgeEvent">Yootify</h1> -->
         </div>
         <div class="badge-body">
             <h2 id="badgeName"><?=$user['full_name']; ?></h2>
             <p id="badgeDesignation"><?=$user['dealer_name']; ?> (CEO)</p>
-            <p id="badgeDesignation">Member ID: AMD-OY-<?=$user['id']; ?></p>
+            <p id="badgeDesignation">Member ID: <?=$user['id']; ?></p>
         </div>
         <div id="qrcode" class="badge-qr">
         </div>
-        <h3 id="badgecontainer">Address: <?=$user['address']; ?>.</h3><br>
+        <h3 id="badgecontainer">Address: <?=$user['address']; ?></h3><br>
         <div class="badge-footer">
             <p id="badgeAccess">Oyo State AMDON Member</p>
         </div>

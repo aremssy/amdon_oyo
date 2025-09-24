@@ -52,15 +52,16 @@ require 'head.php';
                                 </h2>
 
                                 <!-- login form -->
-                            <form id="step1" class="login-form" method="post">
+                            <form id="step1" class="login-form" action="amdon_auth.php" method="POST">
+                                <input type="hidden" name="action" value="login">
                                 <div class="input-field">
-                                    <input type="text"  name="text" id="username" required>
+                                    <input type="text"  name="phone_number" id="username" required>
                                     <label>
                                         Phone Number
                                     </label>
                                 </div>
                                 <div class="input-field delay-100ms">
-                                    <input type="password"  name="text" id="password" required>
+                                    <input type="password"  name="password" id="password" required>
                                     <label>
                                         Password
                                     </label>
@@ -73,12 +74,14 @@ require 'head.php';
                                     <a href="#" class="forget">forget password</a>
                                 </div>
                                 <div class="login-btn">
-                                    <button type="button" class="login">Login to your Account!</button>
+                                    <button type="submit" class="login">Login to your Account!</button>
                                 </div>
                             </form>
 
                             <!-- sign up form -->
-                            <form id="step2" class="signup-form" method="post" action="register.php">
+                            <form id="step2" class="signup-form" method="post" action="amdon_auth.php">
+                                
+                                <input type="hidden" name="action" value="register">
                                 <div class="input-field">
                                     <input type="text"  name="nin" id="mail-email" required>
                                     <label>
@@ -122,14 +125,14 @@ require 'head.php';
                                     </label>
                                 </div>
                                 <div class="input-field delay-200ms">
-                                    <input type="password"  name="lga" id="password" required>
+                                    <input type="password"  name="hashed_password" id="password" required>
                                     <label>
                                         Password
                                     </label>
                                 </div>
                                 <div class="input-field delay-200ms">
                                     <!-- <input type="text"  name="address" id="password" required> -->
-                                    <textarea name="address" id="password" required>
+                                    <textarea name="address" id="address" required>
                                         
                                     </textarea>
                                     <label>
@@ -183,6 +186,120 @@ require 'head.php';
 
     <!-- My js -->
     <script src="assets/js/custom.js"></script>
+    
+  <script>
+        $(document).ready(function() {
+          // Show messages to user above form
+          function showMessage(form, message, isError) {
+            let messageBox = form.find('.form-message');
+            if (!messageBox.length) {
+              messageBox = $('<div class="form-message" role="alert" aria-live="assertive"></div>');
+              form.prepend(messageBox);
+            }
+            messageBox.text(message);
+            messageBox.css('color', isError ? 'red' : 'green');
+          }
+        
+          // Simple Email Regex for validation
+          function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+          }
+        
+          // Validate registration form fields
+          function validateRegistration(form) {
+            const nin = form.find('[name="nin"]').val().trim();
+            const fullName = form.find('[name="full_name"]').val().trim();
+            const phone = form.find('[name="phone_number"]').val().trim();
+            const email = form.find('[name="email"]').val().trim();
+            const dealerName = form.find('[name="dealer_name"]').val().trim();
+            const state = form.find('[name="state"]').val().trim();
+            const lga = form.find('[name="lga"]').val().trim();
+            const password = form.find('[name="hashed_password"]').val();
+            const unique = form.find('[name="unique"]').val();
+        
+            if(!nin) { showMessage(form, "NIN is required.", true); return false; }
+            if(!fullName) { showMessage(form, "Full name is required.", true); return false; }
+            if(!phone) { showMessage(form, "Phone number is required.", true); return false; }
+            if(!email || !isValidEmail(email)) { showMessage(form, "Valid email is required.", true); return false; }
+            if(!dealerName) { showMessage(form, "Dealer name is required.", true); return false; }
+            if(!state) { showMessage(form, "State is required.", true); return false; }
+            if(!lga) { showMessage(form, "LGA is required.", true); return false; }
+            if(!password || password.length < 6) { showMessage(form, "Password must be at least 6 characters.", true); return false; }
+        
+            return true;
+          }
+        
+          // Validate login form fields
+          function validateLogin(form) {
+            const username = form.find('[name="phone_number"]').val().trim();
+            const password = form.find('[name="password"]').val();
+        
+            if(!username) { showMessage(form, "Phone number is required for login.", true); return false; }
+            if(!password) { showMessage(form, "Password is required for login.", true); return false; }
+        
+            return true;
+          }
+        
+          // AJAX form submission handler
+          $('form').on('submit', function(e) {
+            e.preventDefault();
+        
+            let form = $(this);
+            let action = form.find('[name="action"]').val();
+        
+            let isValid = action === 'register' ? validateRegistration(form) : validateLogin(form);
+            if (!isValid) return;
+        
+            let url = form.attr('action') || 'amdon_auth.php';
+            let formData = new FormData(this);
+        
+            let submitBtn = form.find('button[type="submit"]');
+            submitBtn.prop('disabled', true).text('Please wait...');
+        
+            $.ajax({
+              url: url,
+              method: 'POST',
+              data: formData,
+              processData: false,
+              contentType: false,
+              dataType: 'json',
+              success: function(response) {
+                if (response.success) {
+                  showMessage(form, response.message, false);
+                  if (action === 'register') {
+                    window.location.href = response.redirect;
+                    }
+                  if(action === 'login') {
+                    // Redirect or reload on success login as needed
+                    window.location.href = 'dashboard.php';
+                  }
+                } else {
+                  showMessage(form, response.message || "Error occurred", true);
+                }
+              },
+              error: function() {
+                showMessage(form, "Server error or no response.", true);
+              },
+              complete: function() {
+                submitBtn.prop('disabled', false).text(form.data('original-btn-text') || 'Submit');
+              }
+            });
+          });
+        
+          // Store original button text to restore after AJAX
+          $('form button[type="submit"]').each(function() {
+            let btn = $(this);
+            btn.data('original-btn-text', btn.text());
+          });
+        
+          // Initialize form message containers clean on page load
+          $('.form-message').remove();
+        });
+</script>
+
+
+
 </body>
 
 <!-- Mirrored from templates.seekviral.com/trimba3/forms/CompanyRegistrationPage/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 Jan 2025 10:33:40 GMT -->

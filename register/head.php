@@ -23,6 +23,13 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/animation.css">
+    
+<style>
+  .form-message {
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+</style>
 </head>
 <body>
 

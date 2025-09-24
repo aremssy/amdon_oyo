@@ -6,7 +6,7 @@ define('API_USERNAME', 'Admin');
 define('API_PASSWORD', 'Pa22w0rd');
 
 // Your Google reCAPTCHA secret key
-define('RECAPTCHA_SECRET', '6LcqAtQrAAAAADnQj4haMblFJ0ebJ4JxSJqXPNZs');
+define('RECAPTCHA_SECRET', '6LeGA9QrAAAAADBBfOygU_eltM6kdIBzT-SMcWAx');
 
 // Your Cloudinary credentials
 define('CLOUDINARY_CLOUD_NAME', 'amdon');

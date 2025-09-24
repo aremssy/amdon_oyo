@@ -135,7 +135,7 @@ require 'head.php';
                                     <input type="file" name="passport" id="passport" accept="image/*" required />
                                 </div>
 
-                                <div class="g-recaptcha" data-sitekey="6LcqAtQrAAAAAMBUC0QiCDNf8H4tzxzqctB0IHra"></div>
+                                <div class="g-recaptcha" data-sitekey="6LeGA9QrAAAAAL3qlFUnAURK7_CJVgiz6Ug-mT4o"></div>
                                 <div class="input-field delay-200ms">
                                     <!-- <input type="text"  name="address" id="password" required> -->
                                     <textarea name="address" id="address" required></textarea>

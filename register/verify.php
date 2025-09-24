@@ -121,7 +121,7 @@ try {
 
                                     <a href="" class="btn btn-info login-btn">Login Now</a>
                                     <br>
-                                    <a href="idcard?uuid=<?=$uuid ?>" class="btn btn-success idcard-btn">Generate Your ID Card.</a>
+                                    <a href="/idcard?uuid=<?=$uuid ?>" class="btn btn-success idcard-btn">Generate Your ID Card.</a>
                                     <!-- <button type="button" onclick="payWithPaystack()" class="login" style="background: #4CAF50;">Pay Later</button> -->
                                 </div>
                             

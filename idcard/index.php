@@ -35,6 +35,8 @@ $selectFields = ['name', 'phone_office', 'id', 'ownership','address','email1','e
                     $user['lga'] = $field['value'];
                 }elseif ($field['name'] === 'description') {
                     $user['address'] = $field['value'];
+                }elseif ($field['name'] === 'passport_url') {
+                    $user['passport_url'] = $field['value'];
                 }
             }
             // Now use $user for your ID card generation
@@ -69,7 +71,7 @@ $selectFields = ['name', 'phone_office', 'id', 'ownership','address','email1','e
         <div class="badge-header">
             <img src="https://amdon.com.ng/assets/img/logo/logo.png" style="max-width: 150px;">
             <br>
-            <img src="https://www.shutterstock.com/image-vector/man-shirt-tie-businessman-avatar-600nw-548848999.jpg" style="max-width: 150px;">
+            <img src="<?= $user['passport_url'] ?? 'https://www.shutterstock.com/image-vector/man-shirt-tie-businessman-avatar-600nw-548848999.jpg' ?> " style="max-width: 150px;">
             <!-- <h1 id="badgeEvent">Yootify</h1> -->
         </div>
         <div class="badge-body">

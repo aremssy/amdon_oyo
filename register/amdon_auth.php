@@ -9,7 +9,7 @@ define('API_PASSWORD', 'Pa22w0rd');
 define('RECAPTCHA_SECRET', '6LeGA9QrAAAAADBBfOygU_eltM6kdIBzT-SMcWAx');
 
 // Your Cloudinary credentials
-define('CLOUDINARY_CLOUD_NAME', 'amdon');
+define('CLOUDINARY_CLOUD_NAME', 'dwratfmwb');
 define('CLOUDINARY_API_KEY', '389496784768372');
 define('CLOUDINARY_API_SECRET', 'tppL1IKELjzb6pXFXJseMi_m7OE');
 

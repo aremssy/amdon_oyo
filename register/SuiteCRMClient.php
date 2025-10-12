@@ -9,7 +9,7 @@ class SuiteCRMClient
     // Constructor sets API URL and credentials
     public function __construct()
     {
-        $this->apiUrl = 'https://datastore.oncloud.com.ng/service/v4_1/rest.php';
+        $this->apiUrl = 'https://app.amdon.com.ng/service/v4_1/rest.php';
         $this->username = 'Admin';
         $this->password = 'Pa22w0rd';
         $this->sessionId = null;

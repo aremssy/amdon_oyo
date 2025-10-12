@@ -1,7 +1,7 @@
 <?php
 // amdon_auth.php
 
-define('SUITECRM_REST_URL', 'https://datastore.oncloud.com.ng/service/v4_1/rest.php');
+define('SUITECRM_REST_URL', 'https://app.amdon.com.ng/service/v4_1/rest.php');
 define('API_USERNAME', 'Admin');
 define('API_PASSWORD', 'Pa22w0rd');
 

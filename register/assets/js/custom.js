@@ -2,18 +2,18 @@ $('.logSign button').on('click', function()
 {
   $('.logSign button').removeClass('active');
   $(this).addClass('active');
-  if ($('#showlogin').hasClass('active'))
-  {
-      $('main .signup-form').css('display', 'none');
-      $('main .login-form').css('display', 'block');
-      $('main .side-text').attr('style', 'bottom: 0 !important;');
-
-  }
-  else
+  if ($('#showregister').hasClass('active'))
   {
       $('main .signup-form').css('display', 'block');
       $('main .login-form').css('display', 'none');
       $('main .side-text').attr('style', 'bottom: 50% !important;');
+
+  }
+  else
+  {
+      $('main .signup-form').css('display', 'none');
+      $('main .login-form').css('display', 'block');
+      $('main .side-text').attr('style', 'bottom: 0 !important;');
   }
 })
 

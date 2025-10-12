@@ -14,7 +14,7 @@ require 'head.php';
                 <!-- logo -->
                 <div class="logo">
                     <div class="logo-icon">
-                        <img src="assets/images/amdon_logo_main.jpg" alt="BeRifma">
+                        <a href="/"><img src="assets/images/amdon_logo_main.jpg" alt="BeRifma"></a> 
                     </div>
                     <div class="logo-text">
                         
@@ -35,8 +35,8 @@ require 'head.php';
 
                             <!-- login sign up button -->
                             <div class="logSign">
-                                <button id="showlogin" type="button" class="active">Login</button>
-                                <button id="showregister" type="button">register</button>
+                                <button id="showregister" type="button" class="active">REGISTER</button>
+                                <button id="showlogin" type="button">LOGIN</button>
                             </div>
                         </div>
                     </div>
@@ -45,41 +45,14 @@ require 'head.php';
                         <!-- form -->
                         <div class="form">
                                 <h2 class="login-form form-title">
-                                    Account Login
-                                </h2>
-                                <h2 class="signup-form form-title">
                                     Create your Account!
                                 </h2>
-
-                                <!-- login form -->
-                            <form id="step1" class="login-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="action" value="login">
-                                <div class="input-field">
-                                    <input type="text"  name="phone_number" id="username" required>
-                                    <label>
-                                        Phone Number
-                                    </label>
-                                </div>
-                                <div class="input-field delay-100ms">
-                                    <input type="password"  name="password" id="password" required>
-                                    <label>
-                                        Password
-                                    </label>
-                                </div>
-                                <div class="d-flex justify-content-between flex-wrap">
-                                    <div class="rememberme">
-                                        <input type="checkbox">
-                                        <label>Remember Me</label>
-                                    </div>
-                                    <a href="#" class="forget">forget password</a>
-                                </div>
-                                <div class="login-btn">
-                                    <button type="submit" class="login">Login to your Account!</button>
-                                </div>
-                            </form>
-
+                                <h2 class="signup-form form-title">
+                                    Account Login
+                                </h2>
+                            
                             <!-- sign up form -->
-                            <form id="step2" class="signup-form" method="post" action="amdon_auth.php">
+                            <form id="step1" class="login-form"  method="post" action="amdon_auth.php">
                                 
                                 <input type="hidden" name="action" value="register">
                                 <div class="input-field">
@@ -151,6 +124,34 @@ require 'head.php';
                                     <button type="submit" class="signup">Register Now!</button>
                                 </div>
                             </form>
+                                <!-- login form -->
+                            <form id="step2" class="signup-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="action" value="login">
+                                <div class="input-field">
+                                    <input type="text"  name="phone_number" id="username" required>
+                                    <label>
+                                        Phone Number
+                                    </label>
+                                </div>
+                                <div class="input-field delay-100ms">
+                                    <input type="password"  name="password" id="password" required>
+                                    <label>
+                                        Password
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between flex-wrap">
+                                    <div class="rememberme">
+                                        <input type="checkbox">
+                                        <label>Remember Me</label>
+                                    </div>
+                                    <a href="#" class="forget">forget password</a>
+                                </div>
+                                <div class="login-btn">
+                                    <button type="submit" class="login">Login to your Account!</button>
+                                </div>
+                            </form>
+
+                            
 
                             <!-- social sign in -->
                            <!--  <div class="login-form signup_social">

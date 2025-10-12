@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Dealer Logo with Icon</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ---------- LOGO CONTAINER ---------- */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  padding: 25px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- CAR ICON ---------- */
+.car-icon {
+  width: 100px;
+  height: auto;
+  fill: url(#gradient);
+}
+
+/* ---------- TEXT PART ---------- */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo-text h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0d6efd;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.logo-text h1 span {
+  color: #ff4b2b;
+}
+
+.logo-text p {
+  font-size: 14px;
+  color: #444;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="logo-container">
+  <!-- Inline SVG Car Icon -->
+  <svg class="car-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+    <defs>
+      <linearGradient id="gradient" x1="0" y1="0" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0072ff"/>
+        <stop offset="100%" stop-color="#00c6ff"/>
+      </linearGradient>
+    </defs>
+    <path d="M480 192h-32l-42.7-85.3c-7.1-14.3-21.8-23.3-37.8-23.3H272.5c-16 0-30.7 9-37.8 23.3L192 192h-32C71.6 192 0 263.6 0 352v32c0 17.7 14.3 32 32 32h32c0-35.3 28.7-64 64-64s64 28.7 64 64h192c0-35.3 28.7-64 64-64s64 28.7 64 64h32c17.7 0 32-14.3 32-32v-32c0-88.4-71.6-160-160-160zM224 160l32-64h128l32 64H224zm-96 208c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm320 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"/>
+  </svg>
+
+  <!-- Text Section -->
+  <div class="logo-text">
+    <h1>Reek<span>Motors</span></h1>
+    <p>Trusted Car Dealers</p>
+  </div>
+</div>
+
+</body>
+</html>

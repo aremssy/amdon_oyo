@@ -59,7 +59,7 @@ function registerDealer($session, $data) {
         ['name' => 'employees', 'value' => $data['lga']],
         ['name' => 'annual_revenue', 'value' => $data['hashed_password']],
         ['name' => 'description', 'value' => $data['address']],
-        ['name' => 'rating', 'value' => "AMD-OY-" . date('Y') . rand(9999)],
+        ['name' => 'rating', 'value' => "AMD-OY-" . date('y ') . rand(9999)],
         ['name' => 'passport_url', 'value' => $data['passport_url'] ?? ''],
     ];
 
@@ -117,6 +117,71 @@ function cloudinary_signed_upload($filePath) {
     throw new Exception('Cloudinary upload error: ' . $response);
 }
 
+function checkDuplicateInSuiteCRM($session_id, $url, $module, $field, $value) {
+    // Sanitize inputs
+    $allowed_fields = ['email', 'phone'];
+    if (!in_array($field, $allowed_fields)) {
+        return ['status' => 'error', 'message' => 'Invalid field'];
+    }
+
+    // Map field name to SuiteCRM field
+    $crm_field = ($field === 'email') ? 'contacts.email1' : 'contacts.phone_mobile';
+
+    // Build query
+    $query = "$crm_field = '$value'";
+
+    // Prepare request data
+    $data = [
+        "session" => $session_id,
+        "module_name" => $module,
+        "query" => $query,
+        "select_fields" => ["id"],
+        "max_results" => 1,
+        "deleted" => 0
+    ];
+
+    // Send API request
+    $curl = curl_init($url . '/service/v4_1/rest.php');
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+    curl_setopt($curl, CURLOPT_HEADER, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 0);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, [
+        "method" => "get_entry_list",
+        "input_type" => "JSON",
+        "response_type" => "JSON",
+        "rest_data" => json_encode($data)
+    ]);
+
+    $result = curl_exec($curl);
+    curl_close($curl);
+
+    $response = json_decode($result, true);
+    $count = isset($response['result_count']) ? $response['result_count'] : 0;
+
+    if ($count > 0) {
+        return ['status' => 'exists'];
+    } else {
+        return ['status' => 'available'];
+    }
+}
+if (isset($_POST['check_field']) && isset($_POST['value'])) {
+    // Make sure session and SuiteCRM connection exist
+    $field = $_POST['check_field'];
+    $value = $_POST['value'];
+
+    // Assuming you already have $session_id and $url available from your SuiteCRM connection
+    $module = 'AMD_Members'; // or 'Leads' depending on where you store registrations
+// Login to SuiteCRM API
+    $session = suitecrmApiLogin(API_USERNAME, API_PASSWORD);
+    $result = checkDuplicateInSuiteCRM($session, SUITECRM_REST_URL, $module, $field, $value);
+
+    header('Content-Type: application/json');
+    echo json_encode($result);
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['action'] === 'register') {

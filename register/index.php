@@ -95,15 +95,15 @@ require 'head.php';
                                     </label>
                                 </div>
                                 <div class="input-field">
-                                    <div id="phone-status"></div>
                                     <input type="text"  name="phone_number" id="phone_number" required>
+                                    <div id="phone-status"></div>
                                     <label>
                                         Phone Number
                                     </label>
                                 </div>
                                 <div class="input-field">
-                                    <div id="email-status"></div>
                                     <input type="text"  name="email" id="email" required>
+                                    <div id="email-status"></div>
                                     <label>
                                         Your Email
                                     </label>

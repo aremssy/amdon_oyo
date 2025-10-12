@@ -125,7 +125,7 @@ function checkDuplicateInSuiteCRM($session_id, $url, $module, $field, $value) {
     }
 
     // Map field name to SuiteCRM field
-    $crm_field = ($field === 'email') ? 'contacts.email1' : 'contacts.phone_mobile';
+    $crm_field = ($field === 'email') ? 'amd_members.email1' : 'amd_members.phone_office';
 
     // Build query
     $query = "$crm_field = '$value'";

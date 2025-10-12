@@ -83,49 +83,51 @@ require 'head.php';
                                 
                                 <input type="hidden" name="action" value="register">
                                 <div class="input-field">
-                                    <input type="text"  name="nin" id="mail-email" required>
+                                    <input type="text"  name="nin" id="nin" required>
                                     <label>
                                         NIN
                                     </label>
                                 </div>
                                 <div class="input-field">
-                                    <input type="text"  name="full_name" id="mail-email" required>
+                                    <input type="text"  name="full_name" id="full_name" required>
                                     <label>
                                         Full Name
                                     </label>
                                 </div>
                                 <div class="input-field">
-                                    <input type="text"  name="phone_number" id="mail-email" required>
+                                    <div id="phone-status"></div>
+                                    <input type="text"  name="phone_number" id="phone_number" required>
                                     <label>
                                         Phone Number
                                     </label>
                                 </div>
                                 <div class="input-field">
-                                    <input type="text"  name="email" id="mail-email" required>
+                                    <div id="email-status"></div>
+                                    <input type="text"  name="email" id="email" required>
                                     <label>
                                         Your Email
                                     </label>
                                 </div>
                                 <div class="input-field delay-100ms">
-                                    <input type="text"  name="dealer_name" id="user" required>
+                                    <input type="text"  name="dealer_name" id="dealer_name" required>
                                     <label>
                                         Dealer Name
                                     </label>
                                 </div>
                                 <div class="input-field delay-100ms">
-                                    <input type="text"  name="state" id="user" value="Oyo State" readonly required>
+                                    <input type="text"  name="state" id="state" value="Oyo State" readonly required>
                                     <label>
                                         <!-- State -->
                                     </label>
                                 </div>
                                 <div class="input-field delay-200ms">
-                                    <input type="text"  name="lga" id="password" required>
+                                    <input type="text"  name="lga" id="lga" required>
                                     <label>
                                         LGA
                                     </label>
                                 </div>
                                 <div class="input-field delay-200ms">
-                                    <input type="password"  name="hashed_password" id="password" required>
+                                    <input type="password"  name="hashed_password" id="hashed_password" required>
                                     <label>
                                         Password
                                     </label>
@@ -190,9 +192,48 @@ require 'head.php';
 
     <!-- My js -->
     <script src="assets/js/custom.js"></script>
-    
+
   <script>
         $(document).ready(function() {
+
+        // Email check
+          $('#email').on('blur', function(){
+            let email = $(this).val();
+            if(email !== ''){
+              $.ajax({
+                url: 'amdon_auth.php',
+                method: 'POST',
+                data: { check_field: 'email', value: email },
+                dataType: 'json',
+                success: function(response){
+                  if(response.status === 'exists'){
+                    $('#email-status').html('<span style="color:red;">Email already exists</span>');
+                  } else if(response.status === 'available'){
+                    $('#email-status').html('<span style="color:green;">Email available</span>');
+                  }
+                }
+              });
+            }
+          });
+
+          $('#phone_number').on('blur', function(){
+            let phone = $(this).val();
+            if(phone !== ''){
+              $.ajax({
+                url: 'amdon_auth.php',
+                method: 'POST',
+                data: { check_field: 'phone', value: phone },
+                dataType: 'json',
+                success: function(response){
+                  if(response.status === 'exists'){
+                    $('#phone-status').html('<span style="color:red;">Phone already exists</span>');
+                  } else if(response.status === 'available'){
+                    $('#phone-status').html('<span style="color:green;">Phone available</span>');
+                  }
+                }
+              });
+            }
+          });
           // Show messages to user above form
           function showMessage(form, message, isError) {
             let messageBox = form.find('.form-message');

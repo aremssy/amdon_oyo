@@ -138,6 +138,7 @@ require 'head.php';
                                 </div>
 
                                 <div class="g-recaptcha" data-sitekey="6LeGA9QrAAAAAL3qlFUnAURK7_CJVgiz6Ug-mT4o"></div>
+                                <br>
                                 <div class="input-field delay-200ms">
                                     <!-- <input type="text"  name="address" id="password" required> -->
                                     <textarea name="address" id="address" required></textarea>
@@ -226,7 +227,8 @@ require 'head.php';
                 dataType: 'json',
                 success: function(response){
                   if(response.status === 'exists'){
-                    $('#phone-status').html('<span style="color:red;">Phone already exists</span>');
+                    $('#phone-status').html('<span style="color:red;">Phone ' + 'phone' + ' already exists. Please use another one.</span>');
+
                   } else if(response.status === 'available'){
                     $('#phone-status').html('<span style="color:green;">Phone available</span>');
                   }

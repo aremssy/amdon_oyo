@@ -229,7 +229,7 @@ require 'head.php';
                 success: function(response){
                   if(response.status === 'exists'){
                     $('#phone-status').html('<span style="color:red;">Phone ' + 'phone' + ' already exists. Please use another one.</span> </br>');
-                    $(this).val("");
+                    $('#phone-status').val("");
                   } else if(response.status === 'available'){
                     $('#phone-status').html('<span style="color:green;">Phone available</span>');
                   }

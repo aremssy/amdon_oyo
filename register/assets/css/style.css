@@ -248,7 +248,7 @@ main::after
     font-size: 20px;
     color: var(--field-text-color);
     font-weight: bold;
-
+    margin-top: 20px;
 }
 .input-field input:focus
 {

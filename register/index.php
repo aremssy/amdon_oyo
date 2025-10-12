@@ -227,7 +227,7 @@ require 'head.php';
                 dataType: 'json',
                 success: function(response){
                   if(response.status === 'exists'){
-                    $('#phone-status').html('<span style="color:red;">Phone ' + 'phone' + ' already exists. Please use another one.</span>');
+                    $('#phone-status').html('<span style="color:red;">Phone ' + 'phone' + ' already exists. Please use another one.</span> </br>');
 
                   } else if(response.status === 'available'){
                     $('#phone-status').html('<span style="color:green;">Phone available</span>');

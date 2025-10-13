@@ -12,7 +12,8 @@ if (!isset($_GET['reference']) || !isset($_GET['uuid'])) {
 $reference = $_GET['reference'];
 $uuid = $_GET['uuid'];  // The dealer record ID
 
-$secret_key = "sk_test_b1720b597be42c297ffc2e90f9a25f3e088efcf5";
+// $secret_key = "sk_test_b1720b597be42c297ffc2e90f9a25f3e088efcf5";
+$secret_key = "sk_live_999798493486dde41b15cd931d04482989cc574a";
 $paystackApiUrl = "https://api.paystack.co/transaction/verify/" . urlencode($reference);
 
 // Initialize curl to verify payment

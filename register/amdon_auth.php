@@ -116,7 +116,25 @@ function cloudinary_signed_upload($filePath) {
     }
     throw new Exception('Cloudinary upload error: ' . $response);
 }
+function formatToInternational($phone) {
+    // Remove all non-numeric characters
+    $phone = preg_replace('/\D/', '', $phone);
 
+    // If it starts with '234' already
+    if (substr($phone, 0, 3) === '234') {
+        return '+' . $phone;
+    }
+
+    // If it starts with '0', remove it and add +234
+    if (substr($phone, 0, 1) === '0') {
+        $phone = substr($phone, 1);
+    }
+
+    // Keep last 10 digits (in case number is longer)
+    $phone = substr($phone, -10);
+
+    return '+234' . $phone;
+}
 function checkDuplicateInSuiteCRM($session_id, $url, $module, $field, $value) {
     // Sanitize inputs
     $allowed_fields = ['email', 'phone'];
@@ -222,6 +240,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $recordId = registerDealer($session, $dealerData);
 
             if ($recordId) {
+                // Send WhatsApp Message
+                $curl = curl_init();
+                $phone_number = formatToInternational($_POST['phone_number']);
+
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'https://wamsender.com/api/create-message',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                  CURLOPT_POSTFIELDS => array(
+                  'appkey' => '2860f5e3-82b0-4be2-b147-2f4063e4d1b2',
+                  'authkey' => 'aoBWWW94zGfx2lDgyVEiab1qsZS7Das7bhe9IpXUoroBlNxyCW',
+                  'to' => $phone_number,
+                  'message' => 'Welcome to AMDON Oyo Chapter',
+                  'file' => 'https://amdon.com.ng/register/assets/images/amdon_logo_main.jpg',
+                  'sandbox' => 'false'
+                  ),
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                echo $response;
                 echo json_encode([
                     'success' => true,
                     'message' => 'Registration successful',

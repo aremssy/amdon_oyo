@@ -119,7 +119,8 @@ if (isset($_GET['uuid'])) {
 
             if (uuid !='') {
                 let handler = PaystackPop.setup({
-                    key: 'pk_test_8b52e94ac10f9f3f56e68f7e9d415c657b8c1f88', 
+                    // key: 'pk_test_8b52e94ac10f9f3f56e68f7e9d415c657b8c1f88', 
+                    key: 'pk_live_1c03fcb74b3a48dc4bbb00918a33c050ae53dae4', 
                     email: email,
                     amount: amount,
                     currency: "NGN",

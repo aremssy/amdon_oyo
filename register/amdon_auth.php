@@ -31,7 +31,33 @@ function restRequest($method, $arguments) {
 
     return json_decode($response, true);
 }
+function shorten($longUrl) {
+    $data = [
+        "domain" => "clc.is",
+        "target_url" => $longUrl,
+        // optionally "slug" => "customname",
+        // optionally "expired_hours" => 48,
+    ];
 
+    $ch = curl_init("https://clc.is/api/links");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    $response = curl_exec($ch);
+    if ($response === false) {
+        throw new Exception("Curl error: " . curl_error($ch));
+    }
+    curl_close($ch);
+
+    $obj = json_decode($response, true);
+    if (isset($obj['url'])) {
+        return $obj['url'];  // the shortened URL
+    } else {
+        throw new Exception("Error shortening URL: " . $response);
+    }
+}
 function suitecrmApiLogin($username, $password) {
     $user_auth = [
         'user_name' => $username,
@@ -59,7 +85,7 @@ function registerDealer($session, $data) {
         ['name' => 'employees', 'value' => $data['lga']],
         ['name' => 'annual_revenue', 'value' => $data['hashed_password']],
         ['name' => 'description', 'value' => $data['address']],
-        ['name' => 'rating', 'value' => "AMD-OY-" . date('y ') . rand(9999)],
+        ['name' => 'rating', 'value' => "AMD-OY-" .date("y").date("m")."-" .rand(11,998).rand(1,988)],
         ['name' => 'passport_url', 'value' => $data['passport_url'] ?? ''],
     ];
 
@@ -244,7 +270,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $curl = curl_init();
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
+                $url_payment = "https://amdon.com.ng/"."payment?uuid=" . urlencode($recordId) . "&status=1";
+                $short = shorten($url_payment);
 
+                // Message
+                $msg = "Dear ". $_POST['full_name'] . ", \n\nCongratulations! \nYou’ve successfully registered to the AMDON Database! Kindly make your registration payment via this link below to complete your registration. \n\n Stay tuned for updates. \n\n paymen Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',
                   CURLOPT_RETURNTRANSFER => true,
@@ -258,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   'appkey' => '2860f5e3-82b0-4be2-b147-2f4063e4d1b2',
                   'authkey' => 'aoBWWW94zGfx2lDgyVEiab1qsZS7Das7bhe9IpXUoroBlNxyCW',
                   'to' => $phone_number,
-                  'message' => 'Welcome to AMDON Oyo Chapter',
+                  'message' => $msg,
                   'file' => 'https://amdon.com.ng/register/assets/images/amdon_logo_main.jpg',
                   'sandbox' => 'false'
                   ),

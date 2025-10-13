@@ -1,7 +1,35 @@
 <?php
+session_start();
 require 'head.php';
 require 'SuiteCRMClient.php'; // your OOP client class file
 
+function shorten($longUrl) {
+    $data = [
+        "domain" => "clc.is",
+        "target_url" => $longUrl,
+        // optionally "slug" => "customname",
+        // optionally "expired_hours" => 48,
+    ];
+
+    $ch = curl_init("https://clc.is/api/links");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    $response = curl_exec($ch);
+    if ($response === false) {
+        throw new Exception("Curl error: " . curl_error($ch));
+    }
+    curl_close($ch);
+
+    $obj = json_decode($response, true);
+    if (isset($obj['url'])) {
+        return $obj['url'];  // the shortened URL
+    } else {
+        throw new Exception("Error shortening URL: " . $response);
+    }
+}
 // Verify GET parameters
 if (!isset($_GET['reference']) || !isset($_GET['uuid'])) {
     header('Location: /');
@@ -61,6 +89,35 @@ try {
     $newPaymentId = $crmClient->setEntry('AMD_Fees', $paymentData);
 
     if ($newPaymentId) {
+
+        $url_idcard = "https://amdon.com.ng/"."idcard?uuid=". $uuid;
+        $short = shorten($url_idcard);
+        $phone_number = $_SESSION['phone_number'];
+         // Message
+        $msg = "Congratulations! \nYou’ve successfully registered to the AMDON Database! Kindly download your Oyo state membership verification tag via this link below. \n\n Stay tuned for updates. \n\n Tag Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://wamsender.com/api/create-message',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => array(
+          'appkey' => '2860f5e3-82b0-4be2-b147-2f4063e4d1b2',
+          'authkey' => 'aoBWWW94zGfx2lDgyVEiab1qsZS7Das7bhe9IpXUoroBlNxyCW',
+          'to' => $phone_number,
+          'message' => $msg,
+          'file' => 'https://amdon.com.ng/register/assets/images/amdon_logo_main.jpg',
+          'sandbox' => 'false'
+          ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        // echo $response;
         echo json_encode([
             'success' => true,
             'message' => 'Payment recorded successfully',

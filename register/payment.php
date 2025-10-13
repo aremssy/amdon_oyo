@@ -113,7 +113,7 @@ if (isset($_GET['uuid'])) {
     <script src="assets/js/custom.js"></script>
     <script>
         function payWithPaystack() {
-            let email = 'aremuhabib@gmail.com';
+            let email = 'amdon@gmail.com';
             let amount = 5000 * 100; // Convert to kobo
             let uuid = document.getElementById("uuid").value;
 

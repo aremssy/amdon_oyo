@@ -271,11 +271,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($recordId) {
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
-                $url_payment = "https://amdon.com.ng/"."payment?uuid=" . urlencode($recordId) . "&status=1";
+                // $url_payment = "https://amdon.com.ng/"."payment?uuid=" . urlencode($recordId) . "&status=1";
                 // $short = shorten($url_payment);
 
                 // Message
-                $msg = "You’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment to complete your registration process. \n\n Stay tuned for updates. \n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+                $msg = "You have initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment to complete your registration process. \n\n Stay tuned for updates. \n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
 
                 // Send WhatsApp Message
                 $curl = curl_init();

@@ -243,7 +243,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Send WhatsApp Message
                 $curl = curl_init();
                 $phone_number = formatToInternational($_POST['phone_number']);
-                die(var_dump($phone_number));
+                // die(var_dump($phone_number));
+                
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',
                   CURLOPT_RETURNTRANSFER => true,

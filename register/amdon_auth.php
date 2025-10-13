@@ -133,7 +133,7 @@ function formatToInternational($phone) {
     // Keep last 10 digits (in case number is longer)
     $phone = substr($phone, -10);
 
-    return '+234' . $phone;
+    return '234' . $phone;
 }
 function checkDuplicateInSuiteCRM($session_id, $url, $module, $field, $value) {
     // Sanitize inputs
@@ -244,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $curl = curl_init();
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
-                
+
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',
                   CURLOPT_RETURNTRANSFER => true,

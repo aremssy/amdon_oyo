@@ -1,4 +1,5 @@
 <?php
+session_start();
 // amdon_auth.php
 
 define('SUITECRM_REST_URL', 'https://app.amdon.com.ng/service/v4_1/rest.php');
@@ -262,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'address' => $_POST['address'],
                 'passport_url' => $passportUrl,
             ];
-
+            $_SESSION['phone_number'] = $_POST['phone_number'];
             $recordId = registerDealer($session, $dealerData);
 
             if ($recordId) {
@@ -274,7 +275,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $short = shorten($url_payment);
 
                 // Message
-                $msg = "Dear ". $_POST['full_name'] . ", \n\nCongratulations! \nYou’ve successfully registered to the AMDON Database! Kindly make your registration payment via this link below to complete your registration. \n\n Stay tuned for updates. \n\n paymen Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+                $msg = "Dear ". $_POST['full_name'] . ", \n\nCongratulations! \nYou’ve successfully registered to the AMDON Database! Kindly make your registration payment via this link below to complete your registration. \n\n Stay tuned for updates. \n\n paymen Link: ". $short->input->url ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',
                   CURLOPT_RETURNTRANSFER => true,

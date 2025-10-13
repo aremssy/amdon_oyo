@@ -267,8 +267,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $recordId = registerDealer($session, $dealerData);
 
             if ($recordId) {
-                // Send WhatsApp Message
-                $curl = curl_init();
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
                 $url_payment = "https://amdon.com.ng/"."payment?uuid=" . urlencode($recordId) . "&status=1";
@@ -277,6 +275,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Message
                 $msg = "You’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment to complete your registration process. \n\n Stay tuned for updates. \n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
 
+                // Send WhatsApp Message
+                $curl = curl_init();
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',
                   CURLOPT_RETURNTRANSFER => true,

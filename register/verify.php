@@ -91,10 +91,10 @@ try {
     if ($newPaymentId) {
 
         $url_idcard = "https://amdon.com.ng/"."idcard?uuid=". $uuid;
-        $short = shorten($url_idcard);
+        // $short = shorten($url_idcard);
         $phone_number = $_SESSION['phone_number'];
          // Message
-        $msg = "Congratulations! \nYou’ve successfully registered to the AMDON Database! Kindly download your Oyo state membership verification tag via this link below. \n\n Stay tuned for updates. \n\n Tag Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+        $msg = "Congratulations! \nYou’ve successfully registered to the AMDON Database! Kindly download your Oyo state membership verification tag via this link below. \n\n Stay tuned for updates. \n\n Tag Link: ". $url_idcard ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'https://wamsender.com/api/create-message',
           CURLOPT_RETURNTRANSFER => true,

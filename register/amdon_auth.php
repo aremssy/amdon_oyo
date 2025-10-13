@@ -272,10 +272,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
                 $url_payment = "https://amdon.com.ng/"."payment?uuid=" . urlencode($recordId) . "&status=1";
-                $short = shorten($url_payment);
+                // $short = shorten($url_payment);
 
                 // Message
-                $msg = "Dear ". $_POST['full_name'] . ", \n\nCongratulations! \nYou’ve successfully registered to the AMDON Database! Kindly make your registration payment via this link below to complete your registration. \n\n Stay tuned for updates. \n\n paymen Link: ". $short->input->url ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+                $msg = "Dear ". $_POST['full_name'] . ", \nYou’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment via this link below to complete your registration process. \n\n Stay tuned for updates. \n\n Paymen Link: ". $url_payment ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
 
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',

@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $curl = curl_init();
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
-                $url_payment = "https://amdon.com.ng/payment?uuid=" . urlencode($recordId) . "&status=1";
+                $url_payment = "https://amdon.com.ng/register/payment?uuid=" . urlencode($recordId) . "&status=1";
                 // $short = shorten($url_payment);
 
                 // Message

@@ -64,10 +64,10 @@ if (isset($_GET['uuid'])) {
                                         Amount
                                     </label> -->
                                 </div>
-                                <div class="login-btn" style="margin: 50px 0;">
+                                <div class="login-btn" style="margin: 70px 0;">
 
                                     <!-- <button type="submit" class="login">Pay Now</button> -->
-                                    <button type="button" onclick="payWithPaystack()" class="login" style="background: #4CAF50;">Pay Later</button>
+                                    <button type="button" onclick="payWithPaystack()" class="login" style="background: #4CAF50;">Pay Now</button>
                                 </div>
                             </form>
 

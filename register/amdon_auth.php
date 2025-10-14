@@ -286,8 +286,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   CURLOPT_FOLLOWLOCATION => true,
                   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                   CURLOPT_CUSTOMREQUEST => 'POST',
-                  CURLOPT_POSTFIELDS => array(
-                  'appkey' => '2860f5e3-82b0-4be2-b147-2f4063e4d1b2',
+                  CURLOPT_POSTFIELDS => array(  
+                  'appkey' => 'b8275ac8-5da8-462e-8320-9f3c53f2fff5',
                   'authkey' => 'aoBWWW94zGfx2lDgyVEiab1qsZS7Das7bhe9IpXUoroBlNxyCW',
                   'to' => $phone_number,
                   'message' => $msg,

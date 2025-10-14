@@ -53,8 +53,8 @@ function shorten($longUrl) {
     curl_close($ch);
 
     $obj = json_decode($response, true);
-    if (isset($obj['url'])) {
-        return $obj['url'];  // the shortened URL
+    if (isset($obj[0]['url'])) {
+        return $obj[0]['url'];  // the shortened URL
     } else {
         throw new Exception("Error shortening URL: " . $response);
     }
@@ -272,10 +272,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
                 $url_payment = "https://amdon.com.ng/register/payment?uuid=" . urlencode($recordId) . "&status=1";
-                // $short = shorten($url_payment);
+                $short = shorten($url_payment);
 
                 // Message
-                $msg = "Dear ". $_POST['full_name'] . ", \nYou’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment via this link below to complete your registration process. \n\n Stay tuned for updates. \n\n Paymen Link: ". $url_payment ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+                $msg = "Dear ". $_POST['full_name'] . ", \nYou’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment via this link below to complete your registration process. \n\n Stay tuned for updates. \n\n Paymen Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
 
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',

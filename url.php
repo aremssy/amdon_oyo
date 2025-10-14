@@ -24,7 +24,7 @@ function shorten($longUrl) {
     if (isset($obj['input']['url'])) {
         return $obj['input']['url'];  // the shortened URL
     } else {
-        throw new Exception("Error shortening URL: " . $response);
+        throw new Exception("Error shortening URL: " . $obj);
     }
 }
 

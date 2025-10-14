@@ -31,7 +31,7 @@ function shorten($longUrl) {
 // Example:
 try {
     $short = shorten("https://www.example.com/some/long/url");
-    echo "Short link: $short\n";
+    echo "Short link: $short->input->url\n";
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }

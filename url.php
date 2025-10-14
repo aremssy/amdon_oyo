@@ -21,8 +21,8 @@ function shorten($longUrl) {
     curl_close($ch);
 
     $obj = json_decode($response, true);
-    if (isset($obj['url'])) {
-        return $obj['url'];  // the shortened URL
+    if (isset($obj['input']['url'])) {
+        return $obj['input']['url'];  // the shortened URL
     } else {
         throw new Exception("Error shortening URL: " . $response);
     }

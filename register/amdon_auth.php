@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 session_start();
 // amdon_auth.php
 
@@ -269,16 +267,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $recordId = registerDealer($session, $dealerData);
 
             if ($recordId) {
+                // Send WhatsApp Message
+                $curl = curl_init();
                 $phone_number = formatToInternational($_POST['phone_number']);
                 // die(var_dump($phone_number));
-                // $url_payment = "https://amdon.com.ng/"."payment?uuid=" . urlencode($recordId) . "&status=1";
+                $url_payment = "https://amdon.com.ng/payment?uuid=" . urlencode($recordId) . "&status=1";
                 // $short = shorten($url_payment);
 
                 // Message
-                // $msg = "You have initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment to complete your registration process. \n\n Stay tuned for updates. \n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
-
-                // Send WhatsApp Message
-                $curl = curl_init();
+                $msg = "Dear ". $_POST['full_name'] . ", \nYou’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment via this link below to complete your registration process. \n\n Stay tuned for updates. \n\n Paymen Link: ". $url_payment ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
 
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',
@@ -293,7 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   'appkey' => '2860f5e3-82b0-4be2-b147-2f4063e4d1b2',
                   'authkey' => 'aoBWWW94zGfx2lDgyVEiab1qsZS7Das7bhe9IpXUoroBlNxyCW',
                   'to' => $phone_number,
-                  'message' => "You have initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment to complete your registration process. \n\n Stay tuned for updates. \n\nThank You,\nAMDON Chairman \nOyo State Chapter.",
+                  'message' => $msg,
                   'file' => 'https://amdon.com.ng/register/assets/images/amdon_logo_main.jpg',
                   'sandbox' => 'false'
                   ),

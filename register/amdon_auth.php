@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $short = shorten($url_payment);
 
                 // Message
-                $msg = "Dear ". $_POST['full_name'] . ", \nYou’ve initiated registeration into the AMDON Oyo state Database! Kindly make your registration payment via this link below to complete your registration process. \n\n Stay tuned for updates. \n\n Paymen Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
+                $msg = "Dear ". $_POST['full_name'] . ", \n\nYou’ve initiated registeration into the AMDON Oyo state Database! \nKindly make your registration payment via this link below to complete your registration process. \n\n Stay tuned for updates. \n\n Paymen Link: ". $short ."\n\nThank You,\nAMDON Chairman \nOyo State Chapter.";
 
                 curl_setopt_array($curl, array(
                   CURLOPT_URL => 'https://wamsender.com/api/create-message',

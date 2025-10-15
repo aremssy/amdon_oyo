@@ -52,7 +52,8 @@ require 'head.php';
                                 </h2>
 
                                 <!-- login form -->
-                            <form id="step1" class="login-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data">
+                            <!-- <form id="step1" class="login-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data"> -->
+                            <form id="step1" class="login-form" action="" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="action" value="login">
                                 <div class="input-field">
                                     <input type="text"  name="phone_number" id="username" required>

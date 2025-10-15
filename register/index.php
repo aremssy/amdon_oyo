@@ -50,9 +50,6 @@ require 'head.php';
                                 <h2 class="signup-form form-title">
                                     Account Login
                                 </h2>
-<<<<<<< HEAD
-                            
-=======
 
                                 <!-- login form -->
                             <!-- <form id="step1" class="login-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data"> -->
@@ -82,9 +79,9 @@ require 'head.php';
                                 </div>
                             </form>
 
->>>>>>> b4b9648d48d2d48e004874410d769a2f98ed5cda
                             <!-- sign up form -->
-                            <form id="step1" class="login-form"  method="post" action="amdon_auth.php">
+                            <!--<form id="step1" class="login-form"  method="post" action="amdon_auth.php">-->
+                            <form id="step1" class="login-form"  method="post" action="#">
                                 
                                 <input type="hidden" name="action" value="register">
                                 <div class="input-field">

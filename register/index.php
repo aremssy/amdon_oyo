@@ -50,7 +50,39 @@ require 'head.php';
                                 <h2 class="signup-form form-title">
                                     Account Login
                                 </h2>
+<<<<<<< HEAD
                             
+=======
+
+                                <!-- login form -->
+                            <!-- <form id="step1" class="login-form" action="amdon_auth.php" method="POST" enctype="multipart/form-data"> -->
+                            <form id="step1" class="login-form" action="" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="action" value="login">
+                                <div class="input-field">
+                                    <input type="text"  name="phone_number" id="username" required>
+                                    <label>
+                                        Phone Number
+                                    </label>
+                                </div>
+                                <div class="input-field delay-100ms">
+                                    <input type="password"  name="password" id="password" required>
+                                    <label>
+                                        Password
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-between flex-wrap">
+                                    <div class="rememberme">
+                                        <input type="checkbox">
+                                        <label>Remember Me</label>
+                                    </div>
+                                    <a href="#" class="forget">forget password</a>
+                                </div>
+                                <div class="login-btn">
+                                    <button type="submit" class="login">Login to your Account!</button>
+                                </div>
+                            </form>
+
+>>>>>>> b4b9648d48d2d48e004874410d769a2f98ed5cda
                             <!-- sign up form -->
                             <form id="step1" class="login-form"  method="post" action="amdon_auth.php">
                                 
